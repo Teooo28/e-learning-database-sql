@@ -1,0 +1,138 @@
+@startuml diagrama_conceptuala
+hide circle
+skinparam linetype ortho
+skinparam nodesep 60
+skinparam ranksep 70
+skinparam padding 5
+
+entity "Rol" {
+  * id_rol : NUMBER <<PK>>
+  --
+  * denumire_rol : VARCHAR2(50)
+}
+
+entity "Utilizator" {
+  * id_utilizator : NUMBER <<PK>>
+  --
+  * id_rol : NUMBER <<FK>>
+  * nume : VARCHAR2(100)
+  * email : VARCHAR2(100)
+  * parola : VARCHAR2(100)
+  data_inregistrare : DATE
+}
+
+entity "Categorie" {
+  * id_categorie : NUMBER <<PK>>
+  --
+  * denumire : VARCHAR2(100)
+  descriere : VARCHAR2(500)
+}
+
+entity "Curs" {
+  * id_curs : NUMBER <<PK>>
+  --
+  * id_instructor : NUMBER <<FK>>
+  * id_categorie : NUMBER <<FK>>
+  * titlu : VARCHAR2(150)
+  * pret : NUMBER
+  data_creare : DATE
+}
+
+entity "Modul" {
+  * id_modul : NUMBER <<PK>>
+  --
+  * id_curs : NUMBER <<FK>>
+  * titlu_modul : VARCHAR2(150)
+  ordine : NUMBER
+}
+
+entity "Lectie" {
+  * id_lectie : NUMBER <<PK>>
+  --
+  * id_modul : NUMBER <<FK>>
+  * titlu_lectie : VARCHAR2(150)
+  durata_minute : NUMBER
+}
+
+entity "Inscriere" {
+  * id_inscriere : NUMBER <<PK>>
+  --
+  * id_utilizator : NUMBER <<FK>>
+  * id_curs : NUMBER <<FK>>
+  * data_inscriere : DATE
+  procent_completare : NUMBER
+}
+
+entity "Plata" {
+  * id_plata : NUMBER <<PK>>
+  --
+  * id_inscriere : NUMBER <<FK>>
+  * suma_platita : NUMBER
+  * data_plata : DATE
+  metoda_plata : VARCHAR2(50)
+}
+
+entity "Recenzie" {
+  * id_recenzie : NUMBER <<PK>>
+  --
+  * id_utilizator : NUMBER <<FK>>
+  * id_curs : NUMBER <<FK>>
+  * rating : NUMBER
+  comentariu : VARCHAR2(500)
+}
+
+entity "Test_Evaluare" {
+  * id_test : NUMBER <<PK>>
+  --
+  * id_curs : NUMBER <<FK>>
+  * titlu_test : VARCHAR2(100)
+  scor_minim_trecere : NUMBER
+}
+
+entity "Intrebare" {
+  * id_intrebare : NUMBER <<PK>>
+  --
+  * id_test : NUMBER <<FK>>
+  * text_intrebare : VARCHAR2(500)
+  puncte : NUMBER
+}
+
+entity "Varianta_Raspuns" {
+  * id_varianta : NUMBER <<PK>>
+  --
+  * id_intrebare : NUMBER <<FK>>
+  * text_varianta : VARCHAR2(200)
+  * este_corect : NUMBER
+}
+
+entity "Certificat" {
+  * id_certificat : NUMBER <<PK>>
+  --
+  * id_utilizator : NUMBER <<FK>>
+  * id_curs : NUMBER <<FK>>
+  * data_eliberare : DATE
+  cod_unic : VARCHAR2(50)
+}
+
+Rol ||--o{ Utilizator : "1:M"
+Utilizator ||--o{ Curs : "1:M"
+Categorie ||--o{ Curs : "1:M"
+
+Curs ||--o{ Modul : "1:M"
+Modul ||--o{ Lectie : "1:M"
+
+Utilizator ||--o{ Inscriere : "1:M"
+Curs ||--o{ Inscriere : "1:M"
+Inscriere ||--|| Plata : "1:1"
+
+Utilizator ||--o{ Recenzie : "1:M"
+Curs ||--o{ Recenzie : "1:M"
+
+Curs ||--|| Test_Evaluare : "1:1"
+Test_Evaluare ||--o{ Intrebare : "1:M"
+Intrebare ||--o{ Varianta_Raspuns : "1:M"
+
+Utilizator ||--o{ Certificat : "1:M"
+Curs ||--o{ Certificat : "1:M"
+
+@enduml
