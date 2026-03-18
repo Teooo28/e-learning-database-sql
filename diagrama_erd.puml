@@ -1,0 +1,42 @@
+@startuml diagrama_erd
+hide circle
+skinparam linetype ortho
+skinparam nodesep 100
+skinparam ranksep 100
+
+rectangle "Rol" as Rol
+rectangle "Utilizator" as Utilizator
+rectangle "Categorie" as Categorie
+rectangle "Curs" as Curs
+rectangle "Modul" as Modul
+rectangle "Lectie" as Lectie
+rectangle "Inscriere" as Inscriere
+rectangle "Plata" as Plata
+rectangle "Recenzie" as Recenzie
+rectangle "Test_Evaluare" as Test
+rectangle "Intrebare" as Intrebare
+rectangle "Varianta_Raspuns" as Varianta
+rectangle "Certificat" as Certificat
+
+Utilizator "1(0)" --right-- "M(1)" Curs : creeaza
+Rol "1(1)" --right-- "M(1)" Utilizator : are
+Categorie "1(0)" --up-- "M(1)" Curs : contine
+
+Utilizator "1(0)" --down-- "M(1)" Inscriere : face
+Curs "1(0)" --down-- "M(1)" Inscriere : inregistreaza
+Inscriere "1(1)" --left-- "1(1)" Plata : genereaza
+
+Utilizator "1(0)" --up-- "M(1)" Recenzie : scrie
+Recenzie "M(1)" --right-- "1(0)" Curs : evalueaza
+
+Utilizator "1(0)" --up-- "M(1)" Certificat : obtine
+Certificat "M(1)" --right-- "1(0)" Curs : atesta
+
+Curs "1(1)" --right-- "M(1)" Modul : are
+Modul "1(1)" --down-- "M(1)" Lectie : contine
+
+Curs "1(0)" --up-- "1(1)" Test : include
+Test "1(1)" --down-- "M(1)" Intrebare : contine
+Intrebare "1(1)" --down-- "M(1)" Varianta : are
+
+@enduml
