@@ -18,24 +18,24 @@ rectangle "Intrebare" as Intrebare
 rectangle "Varianta_Raspuns" as Varianta
 rectangle "Certificat" as Certificat
 
-Utilizator "1(0)" --right-- "M(1)" Curs : creeaza
-Rol "1(1)" --right-- "M(1)" Utilizator : are
-Categorie "1(0)" --up-- "M(1)" Curs : contine
+Utilizator "1(1)" --right-- "M(0)" Curs : creeaza
+Rol "1(1)" --right-- "M(0)" Utilizator : are
+Categorie "1(1)" --up-- "M(1)" Curs : contine
 
-Utilizator "1(0)" --down-- "M(1)" Inscriere : face
-Curs "1(0)" --down-- "M(1)" Inscriere : inregistreaza
+Utilizator "1(1)" --down-- "M(0)" Inscriere : face
+Curs "1(1)" --down-- "M(0)" Inscriere : inregistreaza
 Inscriere "1(1)" --left-- "1(1)" Plata : genereaza
 
-Utilizator "1(0)" --up-- "M(1)" Recenzie : scrie
-Recenzie "M(1)" --right-- "1(0)" Curs : evalueaza
+Utilizator "1(1)" --up-- "M(0)" Recenzie : scrie
+Recenzie "M(0)" --right-- "1(1)" Curs : evalueaza
 
-Utilizator "1(0)" --up-- "M(1)" Certificat : obtine
-Certificat "M(1)" --right-- "1(0)" Curs : atesta
+Utilizator "1(1)" --up-- "M(0)" Certificat : obtine
+Certificat "M(0)" --right-- "1(1)" Curs : atesta
 
 Curs "1(1)" --right-- "M(1)" Modul : are
 Modul "1(1)" --down-- "M(1)" Lectie : contine
 
-Curs "1(0)" --up-- "1(1)" Test : include
+Curs "1(1)" --up-- "1(1)" Test : include
 Test "1(1)" --down-- "M(1)" Intrebare : contine
 Intrebare "1(1)" --down-- "M(1)" Varianta : are
 
