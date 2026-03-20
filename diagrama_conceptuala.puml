@@ -8,7 +8,7 @@ skinparam padding 5
 entity "Rol" {
   * id_rol : NUMBER <<PK>>
   --
-  * denumire_rol : VARCHAR2(50)
+  * denumire_rol : VARCHAR2(100)
 }
 
 entity "Utilizator" {
@@ -24,7 +24,7 @@ entity "Utilizator" {
 entity "Categorie" {
   * id_categorie : NUMBER <<PK>>
   --
-  * denumire : VARCHAR2(100)
+  * denumire_categorie : VARCHAR2(100)
   descriere : VARCHAR2(500)
 }
 
@@ -33,7 +33,7 @@ entity "Curs" {
   --
   * id_instructor : NUMBER <<FK>>
   * id_categorie : NUMBER <<FK>>
-  * titlu : VARCHAR2(150)
+  * titlu_curs : VARCHAR2(100)
   * pret : NUMBER
   data_creare : DATE
 }
@@ -42,15 +42,15 @@ entity "Modul" {
   * id_modul : NUMBER <<PK>>
   --
   * id_curs : NUMBER <<FK>>
-  * titlu_modul : VARCHAR2(150)
-  ordine : NUMBER
+  * titlu_modul : VARCHAR2(100)
+  * ordine : NUMBER
 }
 
 entity "Lectie" {
   * id_lectie : NUMBER <<PK>>
   --
   * id_modul : NUMBER <<FK>>
-  * titlu_lectie : VARCHAR2(150)
+  * titlu_lectie : VARCHAR2(100)
   durata_minute : NUMBER
 }
 
@@ -69,7 +69,7 @@ entity "Plata" {
   * id_inscriere : NUMBER <<FK>>
   * suma_platita : NUMBER
   * data_plata : DATE
-  metoda_plata : VARCHAR2(50)
+  metoda_plata : VARCHAR2(100)
 }
 
 entity "Recenzie" {
@@ -101,7 +101,7 @@ entity "Varianta_Raspuns" {
   * id_varianta : NUMBER <<PK>>
   --
   * id_intrebare : NUMBER <<FK>>
-  * text_varianta : VARCHAR2(200)
+  * text_varianta : VARCHAR2(500)
   * este_corect : NUMBER
 }
 
@@ -111,7 +111,7 @@ entity "Certificat" {
   * id_utilizator : NUMBER <<FK>>
   * id_curs : NUMBER <<FK>>
   * data_eliberare : DATE
-  cod_unic : VARCHAR2(50)
+  cod_unic : VARCHAR2(100)
 }
 
 Rol ||--o{ Utilizator : "1:M"
