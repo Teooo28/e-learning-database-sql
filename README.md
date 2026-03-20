@@ -21,13 +21,14 @@ Pentru a menține corectitudinea și integritatea bazei de date, modelul respect
 * Pentru a menține relevanța evaluărilor, un student nu poate lăsa o recenzie pentru un curs la care nu are o înscriere activă.
 * O recenzie poate avea un rating limitat strict la o valoare între 1 și 5.
 * Orice curs creat trebuie să aparțină obligatoriu unei categorii. O categorie rămâne în sistem doar dacă conține cel puțin un curs.
-* **Ierarhia conținutului:** Un curs aprobat trebuie să conțină cel puțin un modul, un modul trebuie să aibă cel puțin o lecție, iar testul de evaluare atașat necesită minim o întrebare cu variante de răspuns.
+* Ierarhia conținutului: Un curs aprobat trebuie să conțină cel puțin un modul, un modul trebuie să aibă cel puțin o lecție, iar testul de evaluare atașat necesită minim o întrebare cu variante de răspuns.
 * Orice înscriere în platformă generează în mod automat și obligatoriu o singură înregistrare de plată (relație 1:1).
 * Un curs nou creat poate exista în baza de date având în momentul inițial 0 înscrieri, 0 recenzii și 0 certificate emise.
 * Un test de evaluare este promovat doar dacă scorul obținut de student este mai mare sau egal cu scorul minim setat de instructor.
+* Relație de grad superior (>2): Sistemul înregistrează răspunsurile la teste printr-o relație ternară. Când un student rezolvă un test, tabelul asociativ Raspuns_Student leagă simultan 3 entități: utilizatorul care răspunde, întrebarea la care se răspunde și varianta de răspuns aleasă.
 
 ## 3. Diagrama ERD (Entity-Relationship Diagram)
-Această diagramă reprezintă modelul conceptual de nivel înalt. Ilustrează entitățile de bază, relațiile dintre acestea și cardinalitățile care dictează logica de business a platformei.
+Această diagramă reprezintă modelul conceptual de nivel înalt. Ilustrează Ilustrează cele **14 entități** ale sistemului (inclusiv tabelul `Raspuns_Student` care introduce relația de grad superior), relațiile dintre acestea și cardinalitățile care dictează logica de business a platformei.
 
 ![Diagrama ERD](out/diagrama_erd/diagrama_erd.png)
 

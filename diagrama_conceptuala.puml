@@ -1,8 +1,8 @@
 @startuml diagrama_conceptuala
 hide circle
 skinparam linetype ortho
-skinparam nodesep 60
-skinparam ranksep 70
+skinparam nodesep 120
+skinparam ranksep 100
 skinparam padding 5
 
 entity "Rol" {
@@ -105,6 +105,15 @@ entity "Varianta_Raspuns" {
   * este_corect : NUMBER
 }
 
+entity "Raspuns_Student" {
+  * id_raspuns : NUMBER <<PK>>
+  --
+  * id_utilizator : NUMBER <<FK>>
+  * id_intrebare : NUMBER <<FK>>
+  * id_varianta : NUMBER <<FK>>
+  data_inregistrare : DATE
+}
+
 entity "Certificat" {
   * id_certificat : NUMBER <<PK>>
   --
@@ -134,5 +143,9 @@ Intrebare ||--o{ Varianta_Raspuns : "1:M"
 
 Utilizator ||--o{ Certificat : "1:M"
 Curs ||--o{ Certificat : "1:M"
+
+Utilizator ||--o{ Raspuns_Student
+Intrebare ||--o{ Raspuns_Student
+Varianta_Raspuns ||--o{ Raspuns_Student
 
 @enduml
