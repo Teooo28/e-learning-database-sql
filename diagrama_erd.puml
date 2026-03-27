@@ -4,44 +4,45 @@ skinparam linetype ortho
 skinparam nodesep 100
 skinparam ranksep 100
 
-rectangle "Rol" as Rol
-rectangle "Utilizator" as Utilizator
-rectangle "Categorie" as Categorie
-rectangle "Curs" as Curs
-rectangle "Modul" as Modul
-rectangle "Lectie" as Lectie
-rectangle "Inscriere" as Inscriere
-rectangle "Plata" as Plata
-rectangle "Recenzie" as Recenzie
-rectangle "Test_Evaluare" as Test
-rectangle "Intrebare" as Intrebare
-rectangle "Varianta_Raspuns" as Varianta
-rectangle "Certificat" as Certificat
-rectangle "Raspuns_Student" as Raspuns_Student
+rectangle "Rol\n&#35;id_rol" as Rol
+rectangle "Utilizator\n&#35;id_utilizator" as Utilizator
+rectangle "Categorie\n&#35;id_categorie" as Categorie
+rectangle "Curs\n&#35;id_curs" as Curs
+rectangle "Modul\n&#35;id_modul" as Modul
+rectangle "Lectie\n&#35;id_lectie" as Lectie
+rectangle "Inscriere\n&#35;id_inscriere" as Inscriere
+rectangle "Plata\n&#35;id_plata" as Plata
+rectangle "Recenzie\n&#35;id_recenzie" as Recenzie
+rectangle "Test_Evaluare\n&#35;id_test" as Test
+rectangle "Intrebare\n&#35;id_intrebare" as Intrebare
+rectangle "Varianta_Raspuns\n&#35;id_varianta" as Varianta
+rectangle "Certificat\n&#35;id_certificat" as Certificat
 
-Utilizator "1(1)" --right-- "M(0)" Curs : creeaza
-Rol "1(1)" --right-- "M(0)" Utilizator : are
-Categorie "1(1)" --up-- "M(1)" Curs : contine
+hexagon "RASPUNS" as Raspuns_Student
 
-Utilizator "1(1)" --down-- "M(0)" Inscriere : face
-Curs "1(1)" --down-- "M(0)" Inscriere : inregistreaza
-Inscriere "1(1)" -down- "1(1)" Plata : genereaza
+Utilizator "1(1)" --right-- "M(0)" Curs 
+Rol "1(1)" --right-- "M(0)" Utilizator
+Categorie "1(1)" --up-- "M(1)" Curs
 
-Utilizator "1(1)" --up-- "M(0)" Recenzie : scrie
-Recenzie "M(0)" --right-- "1(1)" Curs : evalueaza
+Utilizator "1(1)" --down-- "M(0)" Inscriere
+Curs "1(1)" --down-- "M(0)" Inscriere
+Inscriere "1(1)" -down- "1(1)" Plata
 
-Utilizator "1(1)" --up-- "M(0)" Certificat : obtine
-Certificat "M(0)" --right-- "1(1)" Curs : atesta
+Utilizator "1(1)" --up-- "M(0)" Recenzie
+Recenzie "M(0)" --right-- "1(1)" Curs
 
-Curs "1(1)" --right-- "M(1)" Modul : are
-Modul "1(1)" --right-- "M(1)" Lectie : contine
+Utilizator "1(1)" --up-- "M(0)" Certificat
+Certificat "M(0)" --right-- "1(1)" Curs
 
-Curs "1(1)" --up-- "1(1)" Test : include
-Test "1(1)" --down-- "M(1)" Intrebare : contine
-Intrebare "1(1)" --down-- "M(1)" Varianta : are
+Curs "1(1)" --right-- "M(1)" Modul
+Modul "1(1)" --right-- "M(1)" Lectie
 
-Utilizator "1(1)" -down- "M(0)" Raspuns_Student : ofera
-Intrebare "1(1)" --right-- "M(0)" Raspuns_Student : inregistreaza
-Varianta "1(1)" --up-- "M(0)" Raspuns_Student : corespunde
+Curs "1(1)" --up-- "1(1)" Test
+Test "1(1)" --down-- "M(1)" Intrebare
+Intrebare "1(1)" --down-- "M(1)" Varianta
+
+Utilizator "1(1)" -down- "M(0)" Raspuns_Student
+Intrebare "1(1)" --right-- "M(0)" Raspuns_Student
+Varianta "1(1)" --up-- "M(0)" Raspuns_Student
 
 @enduml
