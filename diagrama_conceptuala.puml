@@ -1,151 +1,119 @@
 @startuml diagrama_conceptuala
 hide circle
 skinparam linetype ortho
-skinparam nodesep 120
+skinparam nodesep 100
 skinparam ranksep 100
 skinparam padding 5
 
 entity "Rol" {
-  * id_rol : NUMBER <<PK>>
-  --
-  * denumire_rol : VARCHAR2(100)
+  PK id_rol
 }
 
 entity "Utilizator" {
-  * id_utilizator : NUMBER <<PK>>
+  PK id_utilizator
   --
-  * id_rol : NUMBER <<FK>>
-  * nume : VARCHAR2(100)
-  * email : VARCHAR2(100)
-  * parola : VARCHAR2(100)
-  data_inregistrare : DATE
+  FK id_rol
 }
 
 entity "Categorie" {
-  * id_categorie : NUMBER <<PK>>
-  --
-  * denumire_categorie : VARCHAR2(100)
-  descriere : VARCHAR2(500)
+  PK id_categorie
 }
 
 entity "Curs" {
-  * id_curs : NUMBER <<PK>>
+  PK id_curs
   --
-  * id_instructor : NUMBER <<FK>>
-  * id_categorie : NUMBER <<FK>>
-  * titlu_curs : VARCHAR2(100)
-  * pret : NUMBER
-  data_creare : DATE
+  FK id_instructor
+  FK id_categorie
 }
 
 entity "Modul" {
-  * id_modul : NUMBER <<PK>>
+  PK id_modul
   --
-  * id_curs : NUMBER <<FK>>
-  * titlu_modul : VARCHAR2(100)
-  * ordine : NUMBER
+  FK id_curs
 }
 
 entity "Lectie" {
-  * id_lectie : NUMBER <<PK>>
+  PK id_lectie
   --
-  * id_modul : NUMBER <<FK>>
-  * titlu_lectie : VARCHAR2(100)
-  durata_minute : NUMBER
+  FK id_modul
 }
 
 entity "Inscriere" {
-  * id_inscriere : NUMBER <<PK>>
+  PK id_inscriere
   --
-  * id_utilizator : NUMBER <<FK>>
-  * id_curs : NUMBER <<FK>>
-  * data_inscriere : DATE
-  procent_completare : NUMBER
+  FK id_utilizator
+  FK id_curs
 }
 
 entity "Plata" {
-  * id_plata : NUMBER <<PK>>
+  PK id_plata
   --
-  * id_inscriere : NUMBER <<FK>>
-  * suma_platita : NUMBER
-  * data_plata : DATE
-  metoda_plata : VARCHAR2(100)
+  FK id_inscriere
 }
 
 entity "Recenzie" {
-  * id_recenzie : NUMBER <<PK>>
+  PK id_recenzie
   --
-  * id_utilizator : NUMBER <<FK>>
-  * id_curs : NUMBER <<FK>>
-  * rating : NUMBER
-  comentariu : VARCHAR2(500)
+  FK id_utilizator
+  FK id_curs
 }
 
 entity "Test_Evaluare" {
-  * id_test : NUMBER <<PK>>
+  PK id_test
   --
-  * id_curs : NUMBER <<FK>>
-  * titlu_test : VARCHAR2(100)
-  scor_minim_trecere : NUMBER
+  FK id_curs
 }
 
 entity "Intrebare" {
-  * id_intrebare : NUMBER <<PK>>
+  PK id_intrebare
   --
-  * id_test : NUMBER <<FK>>
-  * text_intrebare : VARCHAR2(500)
-  puncte : NUMBER
+  FK id_test
 }
 
 entity "Varianta_Raspuns" {
-  * id_varianta : NUMBER <<PK>>
+  PK id_varianta
   --
-  * id_intrebare : NUMBER <<FK>>
-  * text_varianta : VARCHAR2(500)
-  * este_corect : NUMBER
+  FK id_intrebare
 }
 
 entity "Raspuns_Student" {
-  * id_raspuns : NUMBER <<PK>>
+  PK id_raspuns
   --
-  * id_utilizator : NUMBER <<FK>>
-  * id_intrebare : NUMBER <<FK>>
-  * id_varianta : NUMBER <<FK>>
-  data_inregistrare : DATE
+  FK id_utilizator
+  FK id_intrebare
+  FK id_varianta
 }
 
 entity "Certificat" {
-  * id_certificat : NUMBER <<PK>>
+  PK id_certificat
   --
-  * id_utilizator : NUMBER <<FK>>
-  * id_curs : NUMBER <<FK>>
-  * data_eliberare : DATE
-  cod_unic : VARCHAR2(100)
+  FK id_utilizator
+  FK id_curs
 }
 
-Rol ||--o{ Utilizator : "1:M"
-Utilizator ||--o{ Curs : "1:M"
-Categorie ||--o{ Curs : "1:M"
+Utilizator ||--right--o{ Curs
+Rol ||--right--o{ Utilizator
+Categorie ||--up--o{ Curs
 
-Curs ||--o{ Modul : "1:M"
-Modul ||--o{ Lectie : "1:M"
+Utilizator ||--down--o{ Inscriere
+Curs ||-down-o{ Inscriere
+Inscriere ||-down-|| Plata
 
-Utilizator ||--o{ Inscriere : "1:M"
-Curs ||--o{ Inscriere : "1:M"
-Inscriere ||--|| Plata : "1:1"
+Utilizator ||--up--o{ Recenzie
+Recenzie }o--right--|| Curs
 
-Utilizator ||--o{ Recenzie : "1:M"
-Curs ||--o{ Recenzie : "1:M"
+Utilizator ||--up--o{ Certificat
+Certificat }o--right--|| Curs
 
-Curs ||--|| Test_Evaluare : "1:1"
-Test_Evaluare ||--o{ Intrebare : "1:M"
-Intrebare ||--o{ Varianta_Raspuns : "1:M"
+Curs ||--right--o{ Modul
+Modul ||--right--o{ Lectie
 
-Utilizator ||--o{ Certificat : "1:M"
-Curs ||--o{ Certificat : "1:M"
+Curs ||--up--|| Test_Evaluare
+Test_Evaluare ||--down--o{ Intrebare
+Intrebare ||--down--o{ Varianta_Raspuns
 
-Utilizator ||--o{ Raspuns_Student
-Intrebare ||--o{ Raspuns_Student
-Varianta_Raspuns ||--o{ Raspuns_Student
+Utilizator ||-down-o{ Raspuns_Student
+Intrebare ||--right--o{ Raspuns_Student
+Varianta_Raspuns ||--up--o{ Raspuns_Student
 
 @enduml
