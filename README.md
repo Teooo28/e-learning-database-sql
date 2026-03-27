@@ -25,14 +25,14 @@ Pentru a menține corectitudinea și integritatea bazei de date, modelul respect
 * Orice înscriere în platformă generează în mod automat și obligatoriu o singură înregistrare de plată (relație 1:1).
 * Un curs nou creat poate exista în baza de date având în momentul inițial 0 înscrieri, 0 recenzii și 0 certificate emise.
 * Un test de evaluare este promovat doar dacă scorul obținut de student este mai mare sau egal cu scorul minim setat de instructor.
-* Relație de grad superior (>2): Sistemul înregistrează răspunsurile la teste printr-o relație ternară. Când un student rezolvă un test, tabelul asociativ Raspuns_Student leagă simultan 3 entități: utilizatorul care răspunde, întrebarea la care se răspunde și varianta de răspuns aleasă.
+* Relație de grad superior (>2): Sistemul înregistrează răspunsurile la teste printr-o relație ternară. Când un student rezolvă un test, tabelul asociativ `Raspuns_Student` leagă simultan 3 entități: utilizatorul care răspunde, întrebarea la care se răspunde și varianta de răspuns aleasă.
 
 ## 3. Diagrama ERD (Entity-Relationship Diagram)
-Această diagramă reprezintă modelul conceptual de nivel înalt. Ilustrează Ilustrează cele **14 entități** ale sistemului (inclusiv tabelul `Raspuns_Student` care introduce relația de grad superior), relațiile dintre acestea și cardinalitățile care dictează logica de business a platformei.
+Această diagramă reprezintă modelul conceptual de nivel înalt al aplicației. Am utilizat notația Chen (min-max) pentru a ilustra relațiile, iar cheile primare sunt marcate cu simbolul diez (#). De remarcat este relația de grad superior (>2), reprezentată vizual printr-un hexagon central, care conectează simultan 3 entități distincte (`Utilizator`, `Intrebare` și `Varianta_Raspuns`) pentru a înregistra interacțiunea studentului cu testele.   
 
 ![Diagrama ERD](out/diagrama_erd/diagrama_erd.png)
 
 ## 4. Diagrama Conceptuală (Modelul Relațional)
-Această diagramă detaliază structura fizică a bazei de date, pregătită pentru implementarea în SQL. Include atributele, tipurile de date, cheile primare (PK) și cheile străine (FK), precum și rezolvarea relațiilor de tip Many-to-Many prin tabele asociative (ex. tabelul "Înscriere").
+Această diagramă detaliază structura fizică a bazei de date (14 tabele) folosind notația Crow's Foot. Modelul este proiectat direct în Forma Normală 3 (FN3) și, pentru claritate vizuală, expune exclusiv cheile primare (PK) și cele străine (FK). Relațiile complexe de tip Many-to-Many și relația ternară au fost rezolvate prin tabele associative, precum `Inscriere`, `Recenzie` sau `Raspuns_Student`.
 
 ![Diagrama Conceptuala](out/diagrama_conceptuala/diagrama_conceptuala.png)
